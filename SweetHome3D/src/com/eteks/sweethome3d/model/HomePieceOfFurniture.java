@@ -244,6 +244,7 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
   private float                  width;
   private float                  depth;
   private float                  height;
+  private float                  volume;
   private float                  elevation;
   private float                  dropOnTopElevation;
   private boolean                movable;
@@ -286,6 +287,7 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
     this.width = piece.getWidth();
     this.depth = piece.getDepth();
     this.height = piece.getHeight();
+    this.volume = piece.getVolume();
     this.elevation = piece.getElevation();
     this.dropOnTopElevation = piece.getDropOnTopElevation();
     this.movable = piece.isMovable();
@@ -533,6 +535,7 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
         this.depth = depth;
         this.shapeCache = null;
         this.propertyChangeSupport.firePropertyChange(Property.DEPTH.name(), oldDepth, depth);
+        this.setVolume();
       }
     } else {
       throw new IllegalStateException("Piece isn't resizable");
@@ -557,6 +560,7 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
         float oldHeight = this.height;
         this.height = height;
         this.propertyChangeSupport.firePropertyChange(Property.HEIGHT.name(), oldHeight, height);
+        this.setVolume();
       }
     } else {
       throw new IllegalStateException("Piece isn't resizable");
@@ -582,10 +586,25 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
         this.width = width;
         this.shapeCache = null;
         this.propertyChangeSupport.firePropertyChange(Property.WIDTH.name(), oldWidth, width);
+        this.setVolume();
       }
     } else {
       throw new IllegalStateException("Piece isn't resizable");
     }
+  }
+
+  /**
+   * Returns the volume of this piece of furniture.
+   */
+  public float getVolume() {
+    return this.volume;
+  }
+
+  /**
+   * Helper method that changes the volume of this piece of funiture
+   */
+  private void setVolume(){
+    this.volume = this.width * this.height * this.depth;
   }
 
   /**
