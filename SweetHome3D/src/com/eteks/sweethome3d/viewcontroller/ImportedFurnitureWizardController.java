@@ -79,6 +79,7 @@ public class ImportedFurnitureWizardController extends WizardController
   private float                            proportionalDepth;
   private float                            height;
   private float                            proportionalHeight;
+  private float                            volume;
   private float                            elevation;
   private boolean                          movable;
   private boolean                          doorOrWindow;
